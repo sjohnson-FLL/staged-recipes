@@ -1,0 +1,50 @@
+{% set name = "curses-menu" %}
+{% set version = "0.9.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/curses_menu-{{ version }}.tar.gz
+  sha256: 2d4dc7f3ed27377b3f455dd56cbe87d1bc4e9c09af558dc89eb01e36fe95eb97
+
+build:
+  skip: true  # [py<39]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.9
+    - hatchling
+    - pip
+  run:
+    - python >=3.9
+    - windows-curses >=2.3.3  # [win]
+
+test:
+  imports:
+    - curses_menu
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/pmbarrett314/curses-menu
+  summary: A simple console menu system using curses
+  description: |
+    A simple Python menu-based GUI system on the terminal using curses.
+    Perfect for those times when you need a GUI, but don't want the
+    overhead or learning curve of a full-fledged GUI framework. However,
+    it's also flexible enough to do cool stuff like on-the-fly changing of
+    menus and is extensible to a large variety of uses.
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.md
+  doc_url: https://curses-menu.readthedocs.io/en/latest/
+  dev_url: https://github.com/pmbarrett314/curses-menu
+
+extra:
+  recipe-maintainers:
